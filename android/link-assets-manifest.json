@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/font/AlbertSans-Italic-VariableFont_wght.ttf",
+      "sha1": "771c0c91a68a04a53c650a8682d5d40f25cb254d"
+    },
+    {
+      "path": "src/assets/font/AlbertSans-VariableFont_wght.ttf",
+      "sha1": "b4bcca157e52fdaba0b315afe3378d9ddba6e1dc"
+    }
+  ]
+}

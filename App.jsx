@@ -1,7 +1,4 @@
-
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,6 +18,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Home from './src/pages/home';
 import { COLORS } from './src/helpers/colors';
+import TabNavigation from './src/navigation/tabNavigation';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
@@ -35,7 +34,8 @@ function App() {
   return (
   <SafeAreaView style={{flex:1,backgroundColor:COLORS.white}}>
     <StatusBar/>
-    <Home/>
+    {/* <Home/> */}
+  <TabNavigation/>
   </SafeAreaView>
   );
 }
