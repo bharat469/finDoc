@@ -71,7 +71,7 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
   return (
     <View style={styles.container}>
       {mode === 'SECOND' && <SepratorComponent title="Speakers" />}
-      {mode === 'THIRD' && <SepratorComponent title="Speakers" />}
+      {mode === 'THIRD' && <SepratorComponent title="Video" />}
       <FlatList
         ref={flatListRef}
         data={data}

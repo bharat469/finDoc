@@ -30,6 +30,7 @@ const Home = () => {
       <View style={{marginVertical: 22}}>
       <Carousal data={carosalThree} mode='THIRD' />
       </View>
+      <View style={{height:30}}></View>
     </ScrollView>
   );
 };
