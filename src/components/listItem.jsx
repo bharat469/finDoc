@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginVertical: 12,
     width: 170,
-
     borderRadius: 18,
   },
   containerSecondary: {
