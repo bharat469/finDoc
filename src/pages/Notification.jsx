@@ -108,6 +108,7 @@ const Notification = () => {
 
             <FlatList
                 data={eventsData}
+                showsVerticalScrollIndicator={false} 
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ paddingBottom: 80 }} 
