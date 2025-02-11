@@ -1,0 +1,29 @@
+<svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Background -->
+  <rect x="0" y="0" width="400" height="250" rx="20" fill="#1976D2"/>
+
+  <!-- Chip -->
+  <rect x="30" y="70" width="50" height="40" rx="5" fill="#FFD700"/>
+  <line x1="30" y1="90" x2="80" y2="90" stroke="black" stroke-width="2"/>
+  <line x1="55" y1="70" x2="55" y2="110" stroke="black" stroke-width="2"/>
+
+  <!-- Card Number -->
+  <text x="30" y="160" fill="white" font-size="22" font-weight="bold" font-family="Arial">
+    1234 5678 9012 3456
+  </text>
+
+  <!-- Card Holder Name -->
+  <text x="30" y="200" fill="white" font-size="18" font-family="Arial">
+    JOHN DOE
+  </text>
+
+  <!-- Expiry Date -->
+  <text x="280" y="200" fill="white" font-size="16" font-family="Arial">
+    12/27
+  </text>
+
+  <!-- Bank Name -->
+  <text x="30" y="40" fill="white" font-size="24" font-weight="bold" font-family="Arial">
+    BANK NAME
+  </text>
+</svg>

@@ -71,7 +71,7 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
   return (
     <View style={styles.container}>
       {mode === 'SECOND' && <SepratorComponent title="Speakers" />}
-      {mode === 'THIRD' && <SepratorComponent title="Speakers" />}
+      {mode === 'THIRD' && <SepratorComponent title="Event Videos" />}
       <FlatList
         ref={flatListRef}
         data={data}
@@ -117,14 +117,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 8,
     marginVertical: 12,
-  },
-  circularImage: {
-    width: 105, // Must be equal to height for a perfect circle
-    height: 105,
-    borderRadius: 52.5, // Half of width/height makes it circular
+    borderRadius: 152.5, // Half of width/height makes it circular
     overflow: 'hidden', // Ensures image stays within the circle
     borderWidth: 2, // Optional: Add a border
     borderColor: '#fff', // Optional: Border color
     backgroundColor: 'rgb(226, 121, 22)',
+    paddingHorizontal:6,
+    paddingTop:12
+  },
+  circularImage: {
+    width: 105, // Must be equal to height for a perfect circle
+    height: 125,
   },
 });

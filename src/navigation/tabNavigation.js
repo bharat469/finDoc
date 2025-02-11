@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
 
@@ -10,16 +11,17 @@ import NotificationIcon from "../assets/svg/notification.svg";
 import ProfileIcon from "../assets/svg/profile.svg";
 
 import Home from "../pages/home";
-import Search from "../pages/Search";
+import Search from "../pages/ContactPage";
 import BuyTicket from "../pages/BuyTicket";
 import Notification from "../pages/Notification";
 import ProfileScreen from "../pages/ProfileScreen";
+import Attendes from "../pages/attendes";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator(); 
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
-  console.log("navigation", descriptors)
-  console.log("state", state)
+
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
@@ -33,7 +35,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         const icons = {
           Home: <HomeIcon width={26} height={26} fill={isFocused ? activeColor : inactiveColor} />,
-          Search: <SearchIcon width={26} height={26} />,
+          ContactUs: <SearchIcon width={26} height={26} />,
           Notification: <NotificationIcon width={26} height={26} fill={isFocused ? activeColor : inactiveColor} />,
           Profile: <ProfileIcon width={26} height={26} fill={isFocused ? activeColor : inactiveColor} />,
         };
@@ -77,12 +79,20 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 };
 
 const TabNavigation = () => {
+  const HomeStack = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Attendes" component={Attendes} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    );
+  };
   return (
     <NavigationContainer>
       <Tab.Navigator
         tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Search" component={Search} />
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="ContactUs" component={Search} />
         <Tab.Screen name="BuyTicket" component={BuyTicket} />
         <Tab.Screen name="Notification" component={Notification} />
         <Tab.Screen name="Profile" component={ProfileScreen} />

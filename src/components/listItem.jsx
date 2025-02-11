@@ -1,20 +1,48 @@
 import {
   Dimensions,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../helpers/colors';
-const {Width} = Dimensions.get('window');
+
+const {width} = Dimensions.get('window');
+
 const ListItem = ({data = []}) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const navigation = useNavigation();
+
+  const handlePress = (item, index) => {
+    setSelectedIndex(index); // Highlight selected item
+    switch(item?.id){
+      case 0:
+        navigation.navigate('Notification');
+        break;
+      case 3:
+        navigation.navigate('Attendes');  
+        break;
+      default:
+        break;  
+    }
+  };
+
   const _renderData = ({item, index}) => {
+    const isSelected = selectedIndex === index;
+
     return (
-      <TouchableOpacity style={styles.containerBorder}>
+      <TouchableOpacity
+        style={[
+          styles.containerBorder,
+          {backgroundColor: isSelected ? COLORS.primaryColor : 'white'}, // Highlight color
+        ]}
+        onPress={() => handlePress(item, index)}>
         <View style={styles.containerSecondary}>
-          {item?.icon}
+          {isSelected ? <Image source={item?.Wicon} style={{width:41,height:42}}  resizeMode='contain'/> : item?.icon}
           <View style={styles.textContainer}>
             <Text style={styles.textStyle}>{item?.title}</Text>
             <Text style={styles.subStyle}>{item?.substring}</Text>
@@ -23,9 +51,15 @@ const ListItem = ({data = []}) => {
       </TouchableOpacity>
     );
   };
+
   return (
     <View style={styles.container}>
-      <FlatList data={data} renderItem={_renderData} numColumns={2} />
+      <FlatList
+        data={data}
+        renderItem={_renderData}
+        numColumns={2}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };
@@ -40,10 +74,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 12,
     alignItems: 'center',
-    marginHorizontal: 12,
+    marginHorizontal: 6,
     marginVertical: 12,
-    width: 170,
+    width: width / 2.4,
     borderRadius: 18,
+    borderColor: COLORS.black,
   },
   containerSecondary: {
     flexDirection: 'row',
@@ -55,7 +90,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 20,
-
     color: '#000',
   },
   subStyle: {

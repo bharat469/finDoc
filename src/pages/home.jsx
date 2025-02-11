@@ -1,4 +1,5 @@
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,7 +14,7 @@ import ListItem from '../components/listItem';
 import {Array1} from '../helpers/json/otherOptions';
 import Offer from '../assets/svg/offer.svg';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <ScrollView style={{flex: 1}}>
       <Header />
@@ -24,10 +25,10 @@ const Home = () => {
       <View>
         <ListItem data={Array1} />
       </View>
-      <TouchableOpacity style={{alignItems: 'center'}}>
-        <Offer />
+      <TouchableOpacity style={{alignItems: 'center',top:18}} onPress={()=>props.navigation.navigate('BuyTicket')}>
+        <Image source={require('../assets/png/offer.png')} />
       </TouchableOpacity>
-      <View style={{marginVertical: 22}}>
+      <View style={{marginVertical: 52}}>
       <Carousal data={carosalThree} mode='THIRD' />
       </View>
     </ScrollView>
