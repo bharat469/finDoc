@@ -10,12 +10,29 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+           maven {
+            url  "https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android"
+       }
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
+    // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+allprojects {
+   repositories {
+     
+       maven {
+            url  "https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android"
+       }
+   }
+}
+
+
 }
 
 apply plugin: "com.facebook.react.rootproject"

@@ -9,18 +9,19 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import SepratorComponent from './separator';
+import {useNavigation} from '@react-navigation/native';
 
 const {width} = Dimensions.get('screen');
 
 const Carousal = ({mode = 'FIRST', data = []}) => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const navigation = useNavigation();
   useEffect(() => {
     if (data.length < 2) return; // Prevent scrolling for small lists
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => {
+      setCurrentIndex(prevIndex => {
         let nextIndex = prevIndex + 1;
 
         if (nextIndex >= data.length) nextIndex = 0; // Loop back to first item
@@ -38,9 +39,14 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
     return () => clearInterval(interval);
   }, [data.length]);
 
+  const _handleFirstCarosel = () => {
+    navigation.navigate('BuyTicket')
+  };
 
   const _firstCarousalDisplay = ({item}) => (
-    <TouchableOpacity style={{marginHorizontal: 12}}>
+    <TouchableOpacity
+      style={{marginHorizontal: 12}}
+      onPress={_handleFirstCarosel}>
       <Image
         source={item?.banner}
         resizeMode="contain"
@@ -52,7 +58,7 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
     <TouchableOpacity style={{marginHorizontal: 12}}>
       <Image
         source={item?.banner}
-        resizeMode='cover'
+        resizeMode="cover"
         style={styles.ThirdCarousalImage}
       />
     </TouchableOpacity>
@@ -62,7 +68,7 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
     <TouchableOpacity style={styles.secondCarousal}>
       <Image
         source={item?.image}
-        resizeMode="cover"
+        resizeMode='contain'
         style={styles.circularImage}
       />
     </TouchableOpacity>
@@ -77,7 +83,11 @@ const Carousal = ({mode = 'FIRST', data = []}) => {
         data={data}
         keyExtractor={(item, index) => index.toString()} // Ensure unique keys
         renderItem={
-          mode === 'FIRST' ? _firstCarousalDisplay :mode==='THIRD'?_ThirdCarousalDisplay : _secondCarousalDisplay
+          mode === 'FIRST'
+            ? _firstCarousalDisplay
+            : mode === 'THIRD'
+            ? _ThirdCarousalDisplay
+            : _secondCarousalDisplay
         }
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -108,25 +118,20 @@ const styles = StyleSheet.create({
     width: 302,
     height: 160,
     marginHorizontal: 12,
-    borderRadius:18,
-    marginVertical:12,
- 
+    borderRadius: 18,
+    marginVertical: 12,
   },
   secondCarousal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 6,
     marginVertical: 12,
-    borderRadius: 152.5, // Half of width/height makes it circular
-    overflow: 'hidden', // Ensures image stays within the circle
-    borderWidth: 2, // Optional: Add a border
-    borderColor: '#fff', // Optional: Border color
-    backgroundColor: 'rgb(226, 121, 22)',
-    paddingHorizontal:6,
-    paddingTop:12
+    borderRadius: 100, // Ensures a perfect circle
+    overflow: "hidden", // Ensures image stays inside the border
+      padding:6
   },
   circularImage: {
     width: 105, // Must be equal to height for a perfect circle
-    height: 125,
+    height: 105,
   },
 });

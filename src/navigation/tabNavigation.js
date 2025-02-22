@@ -16,6 +16,8 @@ import BuyTicket from "../pages/BuyTicket";
 import Notification from "../pages/Notification";
 import ProfileScreen from "../pages/ProfileScreen";
 import Attendes from "../pages/attendes";
+import EventSpeaker from "../pages/eventSpeaker";
+import EventVenue from "../pages/eventVenue";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); 
@@ -29,7 +31,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel || route.name;
-        console.log("IsFucsed", isFocused);
+
         const activeColor = "#007bff";
         const inactiveColor = "#777";
 
@@ -82,8 +84,10 @@ const TabNavigation = () => {
   const HomeStack = () => {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Attendes" component={Attendes} options={{ headerShown: false }} />
+        <Stack.Screen name="EventSpeaker" component={EventSpeaker} options={{ headerShown: false }} />
+        <Stack.Screen name="EventVenue" component={EventVenue} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   };
@@ -93,9 +97,9 @@ const TabNavigation = () => {
         tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="ContactUs" component={Search} />
-        <Tab.Screen name="BuyTicket" component={BuyTicket} />
+        <Tab.Screen name="BuyTicket" component={ProfileScreen} />
         <Tab.Screen name="Notification" component={Notification} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile" component={BuyTicket} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -137,6 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100, 
+    paddingHorizontal:12
   },
   buyTicketText: {
     color: "#fff",

@@ -5,10 +5,11 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ScrollView,
+  PanResponder,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import Header from '../components/header';
-import GradientText from '../components/GradientText';
 import {firstDate, secondDate} from '../helpers/json/eventItinerary';
 import {COLORS} from '../helpers/colors';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +19,32 @@ const Notification = () => {
     isFirstDate: true,
     isSecondDate: false,
   });
+
+  // Function to handle left and right swipe
+  const handleSwipe = direction => {
+    if (direction === 'left' && isSelected.isFirstDate) {
+      setIsSelected({isFirstDate: false, isSecondDate: true});
+    } else if (direction === 'right' && isSelected.isSecondDate) {
+      setIsSelected({isFirstDate: true, isSecondDate: false});
+    }
+  };
+
+  // Gesture detection for left/right swipes
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        if (gestureState.dx < -50) {
+          // Left swipe
+          handleSwipe('left');
+        } else if (gestureState.dx > 50) {
+          // Right swipe
+          handleSwipe('right');
+        }
+      },
+    })
+  ).current;
 
   const renderItem = ({item, index}) => (
     <View
@@ -37,7 +64,7 @@ const Notification = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} {...panResponder.panHandlers}>
       <Header />
       <Text style={styles.headingText}>Event Itinerary</Text>
       <View style={styles.dateboxcontainer}>
@@ -45,87 +72,66 @@ const Notification = () => {
           colors={
             isSelected.isFirstDate ? ['#F08F27', '#F37748'] : ['#fff', '#fff']
           }
-          style={[
-            styles.datebox,
-            // isSelected.isFirstDate && {backgroundColor: COLORS.moreBlack},
-          ]}>
+          style={styles.datebox}>
           <TouchableOpacity
             onPress={() =>
               setIsSelected({
-                ...isSelected,
                 isFirstDate: true,
                 isSecondDate: false,
               })
             }>
-            {isSelected.isFirstDate ? (
-              <Text
-                style={{
-                  fontWeight: '700',
-                  fontSize: 18,
-                  fontFamily: 'Arial',
-                  color: COLORS.white,
-                }}>
-                06th Sept, 2024
-              </Text>
-            ) : (
-              <Text style={styles.dateboxText}>06th Sept, 2024</Text>
-            )}
+            <Text
+              style={
+                isSelected.isFirstDate ? styles.selectedDateText : styles.dateboxText
+              }>
+              28th March, 2025
+            </Text>
           </TouchableOpacity>
         </LinearGradient>
+
         <LinearGradient
           colors={
             isSelected.isSecondDate ? ['#F08F27', '#F37748'] : ['#fff', '#fff']
           }
-          style={[
-            styles.datebox,
-            // isSelected.isFirstDate && {backgroundColor: COLORS.moreBlack},
-          ]}>
+          style={styles.datebox}>
           <TouchableOpacity
-        
             onPress={() =>
               setIsSelected({
-                ...isSelected,
-                isSecondDate: true,
                 isFirstDate: false,
+                isSecondDate: true,
               })
             }>
-            {isSelected.isSecondDate ? (
-              <Text
-                style={{
-                  fontWeight: '700',
-                  fontSize: 18,
-                  fontFamily: 'Arial',
-                  color: COLORS.white,
-                }}>
-                07th Sept, 2024
-              </Text>
-            ) : (
-              <Text style={styles.dateboxText}>07th Sept, 2024</Text>
-            )}
+            <Text
+              style={
+                isSelected.isSecondDate ? styles.selectedDateText : styles.dateboxText
+              }>
+              29th March, 2025
+            </Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
-      <View style={styles.eventContainer}>
+
+      <View style={{flex: 1}}>
         <FlatList
           data={isSelected.isFirstDate ? firstDate : secondDate}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-          contentContainerStyle={{paddingBottom: 80}}
+          contentContainerStyle={styles.eventContainer}
         />
+        <View style={{height: 62}} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.white,
-
     flex: 1,
+    backgroundColor: COLORS.white,
   },
   headingText: {
     textAlign: 'center',
-    fontWeight: 300,
+    fontWeight: '300',
     fontFamily: 'Albert Sans',
     fontSize: 22,
     marginTop: 8,
@@ -147,42 +153,46 @@ let styles = StyleSheet.create({
   dateboxText: {
     color: COLORS.black,
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: '600',
     textAlign: 'center',
+  },
+  selectedDateText: {
+    fontWeight: '700',
+    fontSize: 18,
+    fontFamily: 'Arial',
+    color: COLORS.white,
   },
   name: {
     fontSize: 15,
-    fontWeight: 700,
+    fontWeight: '700',
     fontFamily: 'Albert Sans',
   },
   desc: {
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: '400',
     fontFamily: 'Albert Sans',
   },
   time: {
-    color: ' #000000',
+    color: '#000000',
     fontSize: 16,
-    fontWeight: 300,
+    fontWeight: '300',
     fontFamily: 'Albert Sans',
-    paddingLeft:12
+    paddingLeft: 12,
   },
   eventContainer: {
-    // flex: 1,
-    // width: '97%',
-    borderRadius: 20,
-    borderColor: '#BFBDC0',
     borderRadius: 10,
-    overflow: 'hidden',
+    borderColor: '#BFBDC0',
     borderWidth: 1,
     marginTop: 20,
-    // marginInline: 'auto',
+    marginHorizontal: 22,
+    paddingVertical: 22,
   },
   eventCard: {
     flexDirection: 'row',
-    paddingVertical: 5,
+    paddingVertical: 12,
     justifyContent: 'space-between',
     backgroundColor: '#D9D9D9',
+    paddingHorizontal: 6,
   },
   card_left_part: {
     flexDirection: 'row',
@@ -195,4 +205,5 @@ let styles = StyleSheet.create({
     width: '48%',
   },
 });
+
 export default Notification;

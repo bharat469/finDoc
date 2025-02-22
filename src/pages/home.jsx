@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/header';
 import Carousal from '../components/carousal';
 import {carosalFirst, carosalThree, carousalTwo} from '../helpers/json/carousal';
 import ListItem from '../components/listItem';
 import {Array1} from '../helpers/json/otherOptions';
-import Offer from '../assets/svg/offer.svg';
+import PreviousEvent from '../components/PreviousEvent';
+import ContactUsComponet from '../components/contactUsComponet';
+
 
 const Home = (props) => {
   return (
@@ -30,6 +32,8 @@ const Home = (props) => {
       </TouchableOpacity>
       <View style={{marginVertical: 52}}>
       <Carousal data={carosalThree} mode='THIRD' />
+      <PreviousEvent/>
+      <ContactUsComponet/>
       </View>
     </ScrollView>
   );

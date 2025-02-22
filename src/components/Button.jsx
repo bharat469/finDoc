@@ -3,9 +3,9 @@ import React from 'react'
 import { COLORS } from '../helpers/colors'
 
 const {width,height}=Dimensions.get('window')
-const Button = ({btnName='Submit',btnStyles={}}) => {
+const Button = ({btnName='Submit',btnStyles={},onPress=()=>{}}) => {
   return (
-  <TouchableOpacity style={[styles.btnStyle,btnStyles]}>
+  <TouchableOpacity style={[styles.btnStyle,btnStyles]} onPress={onPress}>
     <Text style={{color:COLORS.white,fontSize:18,fontWeight:'700'}}>{btnName}</Text>
   </TouchableOpacity>
   )

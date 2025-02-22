@@ -75,13 +75,13 @@ const TermsCheckbox = () => {
             Kindly Email the addhar card for check-in by travel desk on
             <Text style={{color: COLORS.primaryColor}}>
               {' '}
-              rahat.mehra@myfindoc.com
+              ishan.sharma@myfindoc.com
             </Text>
           </Text>
           <Text style={styles.text}>
             Further, if you want to raise GST invoice, let us know on{' '}
             <Text style={{color: COLORS.primaryColor}}>
-              {''} rahat.mehra@myfindoc.com
+              {''} ishan.sharma@myfindoc.com
             </Text>
           </Text>
         </View>

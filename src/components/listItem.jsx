@@ -23,9 +23,15 @@ const ListItem = ({data = []}) => {
       case 0:
         navigation.navigate('Notification');
         break;
-      case 3:
-        navigation.navigate('Attendes');  
+      case 1:
+        navigation.navigate('EventVenue');
         break;
+        case 3:
+          navigation.navigate('Attendes');  
+          break;
+        case 4:
+          navigation.navigate('EventSpeaker');
+          break;
       default:
         break;  
     }
